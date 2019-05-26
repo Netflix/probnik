@@ -5,11 +5,12 @@
   "main": "probe.js",
   "scripts": {
     "test": "test",
-    "build:demo": "cp demo/index.html demo/dist/index.html && browserify demo/main.js > demo/dist/main.js",
+    "build:demo": "cp demo/app.css demo/dist/app.css && cp demo/vendor/chart.js demo/dist/vendor/chart.js &&cp demo/index.html demo/dist/index.html && browserify demo/main.js > demo/dist/main.js",
     "build:probe": "tsc",
     "demo:ui": "npm run build:demo && npm run serve:demo",
     "demo:steering": "npm run serve:steering",
     "demo": "npm run build:probe && concurrently \"npm:demo:ui\" \"npm:demo:steering\"",
+    "serve:demo:dev": "http-server ./demo/ -p 8000",
     "serve:demo": "http-server ./demo/dist/ -p 8000",
     "serve:steering": "node ./demo/server/app.js"
   },

@@ -8,25 +8,320 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Probnic demo!</title>
+    <!-- Custom styles -->
+    <link href="app.css" rel="stylesheet">
+
+    <title>Probnic demo</title>
   </head>
   <body>
-    <div id="root">
-        <div class="container">
-            <div class="form-group">
-                    <label for="progress-log">Example textarea</label>
-                    <textarea class="form-control" rows="3" id="progress-log">
 
-                    </textarea>
+    <div id="wrapper">
+
+        <!-- Sidebar menu -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Logo -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
             </div>
+            <div class="sidebar-brand-text mx-3">Probnic</div>
+            </a>
+    
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+    
+            <!-- Probnic demo dash -->
+            <li class="nav-item active">
+            <a class="nav-link" href="index.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Contacts and credits -->
+            <div class="sidebar-heading">
+                About
+            </div>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+    
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+                </button>
+
+                <h1 class="h3 mb-0 text-gray-800">Demo</h1>
+    
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                </ul>
+
+            </nav>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            
+            </div>
+
+            <!-- Content Row -->
+            <div class="row justify-content-md-center">
+                <!-- Probe recipe configuration -->
+                <div class="col mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Recipe Config</div>
+                            <div class="form-group">
+                                    <label for="progress-log">JSON</label>
+                                    <textarea class="form-control" rows="3" id="progress-log">
+                                    </textarea>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Probe schedule configuration -->
+                <div class="col mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Recipe Scheduler</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Probes log -->
+            <div class="row justify-content-md-center">
+                <div class="col mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Probes log</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <table class="table table-condensed" style="border-collapse:collapse;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Pulse</th>
+                                                    <th>Status</th>
+                                                    <th>Time (ms)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                                                    <td>1</td>
+                                                    <td>05 May 2013</td>
+                                                    <td>Credit Account</td>
+                                                    <td class="text-success">$150.00</td>
+                                                    <td class="text-error"></td>
+                                                </tr>
+                                                <tr >
+                                                    <td colspan="6" class="hiddenRow">
+                                                        <div class="accordian-body collapse" id="demo1"> 
+                                                            Demo1 
+                                                        </div> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+    
+            <!-- Graphs Row -->
+            <div class="row">
+    
+                <!-- Area Chart -->
+                <div class="col-xl-12">
+                    <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Probe Results</h6>
+                        <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- RPS -->
+                                <div class="col border mb-1">
+                                    RPS
+                                    <canvas id="probe-rps-chart"></canvas>
+                                </div>
+
+                                <!-- Errors Rate -->
+                                <div class="col border mb-1">
+                                    Errors Rate
+                                    <canvas id="errors-rate-chart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Probes Share -->
+                                <div class="col border mb-1">
+                                    Probes Share
+                                    <canvas id="probe-share-chart"></canvas>
+                                </div>
+
+                                <!-- Errors Share -->
+                                <div class="col border mb-1">
+                                    Errors Share
+                                    <canvas id="errors-share-chart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Time -->
+                                <div class="col border mb-1">
+                                    Timing
+                                    <canvas id="timing-chart"></canvas>
+                                </div>
+                            </div>                                
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Content Row -->
+            <div class="row">
+    
+                <!-- Content Column -->
+                <div class="col-lg-6 mb-4">
+    
+                    <!-- Project Card Example -->
+                    <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
+                        <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
+                        <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
+                        <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
+                        <div class="progress mb-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
+                        <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    </div>
+    
+                <div class="col-lg-6 mb-4">
+    
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
+                        </div>
+                        <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
+                    </div>
+                    </div>
+    
+                </div>
+                </div>
+    
+            </div>
+            <!-- /.container-fluid -->
+    
         </div>
+        <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2019</span>
+              </div>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+    
+        </div>
+        <!-- End of Content Wrapper -->
+    
       </div>
+      <!-- End of Page Wrapper -->
+            
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="main.js"></script>
   </body>
 </html>
