@@ -277,57 +277,106 @@ function graphOnComplete(probe) {
         });
         chart.update();
     });
-    /*
-    // if yes - add new point
-    // remove old points, if needed
-
-    // if not - update last point
-
-    // refresh graphs
-
-
-    // transform probes so each target has a timestamp
-    var extendedProbes = probes.map(v => v.data.map(function(d) { d.ts = v.ctx.ts; return d; })).flat();
-
-    // convert set of probes for each bucket to a metric for each target
-    var rolledUp = d3.rollups(extendedProbes, v => v.length, d => dateBucket(1, d.ts), d => d.name)
-
-    var lastLabel = rolledUp[rolledUp.length - 1][0];
-
-    var datasets = d3.groups(rolledUp.map(d => d[1]).flat(), d => d[0]).map(function(d) { return {label: d[0], data: d[1].map(d => d[1])}});
-    var lastDataset = datasets[datasets.length - 1];
-
-    if (lastLabel !== rpsChart.data.labels[rpsChart.data.labels.length - 1]) {
-        rpsChart.data.labels.push(lastLabel);
-        if (rpsChart.data.datasets.length === 0) {
-            rpsChart.data.datasets = datasets;
-        } else {
-            var i = 0;
-            rpsChart.data.datasets.forEach((dataset) => {
-                dataset.data.push(datasets[i].data[datasets[i].data.length - 1]);
-                i+=1;
-            });
-        }
-    } else {
-        var i = 0;
-        rpsChart.data.datasets.forEach((dataset) => {
-            dataset.data[dataset.data.length - 1] = datasets[i].data[datasets[i].data.length - 1];
-            i+=1;
-        });
-    }
-    rpsChart.update();*/
 }
 
 function onComplete(recipeName, data) {
     results.push(data);
     graphOnComplete(data);
-    progressLog.text(progressLog.text() + recipeName + "DONE" + JSON.stringify(data) + '\n');
+
+    table.row.add([results.length - 1, data.ctx.ts, recipeName, '']).draw();
 }
 
 function runProbe() {
-    var recipeUrl = "http://localhost:3000/probnic/recipe";
-    var t = new probnic.FtlProbeImpl(recipeUrl, onComplete);
-    t.start();
+    var rangeSlider = document.getElementById("scheduler-interval-range");
+    if (schedulerIsActive) {
+        var recipeUrl = "http://localhost:3000/probnic/recipe";
+        var t = new probnic.FtlProbeImpl(recipeUrl, onComplete);
+        t.start();
+    }
+    setTimeout(runProbe, rangeSlider.value);
 }
 
-setInterval(runProbe, 1000); 
+var schedulerIsActive = true,
+    startStopBtn = document.getElementById("scheduler-start-btn");
+
+document.getElementById("scheduler-interval-range").addEventListener("change", function() {
+    document.getElementById("scheduler-interval-value").value = this.value;
+});
+
+
+startStopBtn.addEventListener("click", function() {
+    if (schedulerIsActive) {
+        // stop the scheduler
+        schedulerIsActive = false;
+        startStopBtn.classList.add('btn-success');
+        startStopBtn.classList.remove('btn-danger');
+        startStopBtn.innerText = "Start";
+    } else {
+        // start the scheduler
+        schedulerIsActive = true;
+        startStopBtn.classList.add('btn-danger');
+        startStopBtn.classList.remove('btn-success');
+        startStopBtn.innerText = "Stop";   
+    }
+});
+
+var table = $('#probes-log-table').DataTable({
+    "columnDefs": [{
+            // The `data` parameter refers to the data for the cell (defined by the
+            // `data` option, which defaults to the column being worked with, in
+            // this case `data: 0`.
+            "render": function ( data, type, row ) {
+                return '<button class="probe-details-btn">JSON</button>';
+            },
+            "targets": 3
+        }],
+    });
+
+function formatSampleDetails(data) {
+    var details = '<div class="container-fluid">' +
+        '<table>'+
+        '<thead>' + 
+            '<th>Target</th>' + 
+            '<th>URL</th>' + 
+            '<th>Status</th>' + 
+            '<th>Duration</th>' + 
+        '</thead>' + 
+        '<tbody>';
+    data.data.forEach((sample) => {
+        details += '<tr>'+
+            '<td>' + sample.name + '</td>' +
+            '<td>' + sample.url + '</td>' +
+            '<td>' + sample.data[0].sc + '</td>' +
+            '<td>' + sample.data[0].d + '</td>' +
+        '</tr>';
+    });
+    details +='</tbody>'+ '</table> </div>';
+    return details;
+}
+
+// Add event listener for opening and closing details
+$('#probes-log-table tbody').on('click', 'td', function (event) {
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
+
+    var probe = results[row.data()[0]];
+
+    if ($(event.target).hasClass('probe-details-btn')) {
+        document.getElementById('probe-json').innerText = JSON.stringify(probe, null, '  ');
+        $('#probe-details-modal').modal('show');
+    } else {
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( formatSampleDetails(probe) ).show();
+            tr.addClass('shown');
+        }
+    }
+} );
+ 
+
+runProbe();
