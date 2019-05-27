@@ -1,4 +1,4 @@
-var probnic = require('../src/probe.js');
+var probnic = require('../dist/probnic.js');
 
 var progressLog = $('#progress-log');
 
