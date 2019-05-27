@@ -94,7 +94,7 @@ class HttpTest {
         private pulse_timeout: number) {
     }
 
-    private forEachURL(fn: (this: HttpTest, url: string, name: string) => void): void {
+    private forEachTarget(fn: (this: HttpTest, target: string, name: string) => void): void {
         for (let i = 0, l = this.targets.length; i < l; i++) {
             const info = this.targets[i];
             fn.bind(this)(info['target'], info['name']);
@@ -104,7 +104,7 @@ class HttpTest {
     public run(cb: (reports: ProbeSampleReport[]) => void) {
         const reports: ProbeSampleReport[] = [];
         const wg = new WaitGroup(this.targets.length);
-        this.forEachURL(function (target, name) {
+        this.forEachTarget(function (target, name) {
             const pulses: ProbeReportPulse[] = [];
             const handler = function (done: () => void, status: number, headers: HttpHeaders, body: string | null, metrics: HttpMetrics) {
                 pulses.push({

@@ -18,23 +18,23 @@ app.get("/probnic/recipe", (req, res, next) => {
         "next": 0,
         "pulse_timeout": 15000,
         "pulse_delays": [0, 2000, 2000],
-        "urls": [
+        "targets": [
             {
                 "name": "fast",
-                "url": "http://localhost:3000/datagen/fast?size=5120"
+                "target": "http://localhost:3000/datagen/fast?size=5120"
             },
             {
                 "name": "slow",
-                "url": "http://localhost:3000/datagen/slow?size=5120"
+                "target": "http://localhost:3000/datagen/slow?size=5120"
             },
             {
                 "name": "wonky",
-                "url": "http://localhost:3000/datagen/wonky?size=5120"
+                "target": "http://localhost:3000/datagen/wonky?size=5120"
             }
         ],
         "pulses": 3,
         "pulse_delay": 2000,
-        "logblob": "test",
+        "name": "test",
         "ctx": {
             "iter": null,
             "ts": new Date().valueOf()

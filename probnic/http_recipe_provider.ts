@@ -58,25 +58,25 @@ export class RestRecipeProvider implements RecipeProvider {
                 if (!isInt(json.pulse_timeout)) {
                     throw new Error(`${errPrefix}.pulse_timeout: not an integer`);
                 }
-                if (!isString(json.logblob)) {
-                    throw new Error(`${errPrefix}.logblob: not a string`);
+                if (!isString(json.name)) {
+                    throw new Error(`${errPrefix}.name: not a string`);
                 }
                 if (!isObject(json.ctx)) {
                     throw new Error(`${errPrefix}.ctx: not an object`);
                 }
-                if (!isArray(json.urls)) {
-                    throw new Error(`${errPrefix}.urls: not an array`);
+                if (!isArray(json.targets)) {
+                    throw new Error(`${errPrefix}.targets: not an array`);
                 }
-                for (let i = 0, l = json.urls.length; i < l; i++) {
-                    const urlInfo = json.urls[i];
-                    if (!isObject(urlInfo)) {
-                        throw new Error(`${errPrefix}.urls[${i}]: not an object`);
+                for (let i = 0, l = json.targets.length; i < l; i++) {
+                    const targetInfo = json.targets[i];
+                    if (!isObject(targetInfo)) {
+                        throw new Error(`${errPrefix}.targets[${i}]: not an object`);
                     }
-                    if (!isString(urlInfo.name)) {
-                        throw new Error(`${errPrefix}.urls[${i}].name: not a string`);
+                    if (!isString(targetInfo.name)) {
+                        throw new Error(`${errPrefix}.targets[${i}].name: not a string`);
                     }
-                    if (!isString(urlInfo.url)) {
-                        throw new Error(`${errPrefix}.urls[${i}].url: not a string`);
+                    if (!isString(targetInfo.target)) {
+                        throw new Error(`${errPrefix}.targets[${i}].target: not a string`);
                     }
                 }
                 const params = <ProbeRecipe>json;
