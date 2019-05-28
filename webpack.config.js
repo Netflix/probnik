@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = [{
-    entry: './probnic/browser_probnic.ts',
+    entry: './probnic/probnic.ts',
     output: { filename: './probnic.js' },
     resolve: {
       extensions: [".ts", ".js"]

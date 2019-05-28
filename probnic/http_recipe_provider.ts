@@ -1,6 +1,5 @@
-import { RecipeProvider, ProbeRecipe } from './probnic';
-import { HttpRequester } from './requester';
-import { XhrHttpRequester } from './xhr_requester';
+import { RecipeProvider, ProbeRecipe, RequesterOptions } from './probe';
+import { XhrHttpRequester, HttpGetData, HttpGetDataCallback } from './xhr_requester';
 
 function isObject(o: any): boolean {
     return !!(o && ("object" === typeof o));
@@ -18,6 +17,10 @@ function isString(v: any): boolean {
     return typeof v === 'string';
 }
 
+interface HttpDataRequester {
+    getData(url: string, timeout: number, cb: HttpGetDataCallback, options: RequesterOptions): void
+}
+
  /**
  * Provides Probnic recipe based on an output of a REST HTTP endpoint.
  * When acked to provide a recipe, performs an HTTP GET call on a configured URL and provides
@@ -25,7 +28,7 @@ function isString(v: any): boolean {
  */
 export class RestRecipeProvider implements RecipeProvider {
     /** Requester used to get data */
-    public static requester: HttpRequester;
+    public static requester: HttpDataRequester;
 
     /**
      * @param url URL of an API endpoint to call to get a recipe.
@@ -34,8 +37,12 @@ export class RestRecipeProvider implements RecipeProvider {
     }
 
     /** Provides recipe to test. */
-    public getRecipe(cb: (params: ProbeRecipe | null) => void): void {
-        RestRecipeProvider.requester.get(this.url, true, 0, function (status, headers, body, metrics) {
+    public getRecipe(iteration: number, cb: (params: ProbeRecipe | null) => void): void {
+        let url = this.url 
+
+        const delimiter = url.indexOf('?') === -1 ? '?' : '&';
+        url = `${url}${delimiter}iteration=${iteration}`;
+        RestRecipeProvider.requester.getData(url, 0, function (status, headers, body) {
             if (status != 200 || body == null) {
                 cb(null);
                 return;
@@ -88,7 +95,7 @@ export class RestRecipeProvider implements RecipeProvider {
                 cb(null);
                 return;
             }
-        });
+        }, {withCookies: true});
     }
 }
 

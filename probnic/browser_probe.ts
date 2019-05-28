@@ -1,11 +1,18 @@
-import { Probnic, RecipeProvider, ProbeReporter, ProbeRecipe, ProbeContext, ProbeSampleReport, ProbeTargetInfo, ProbeReportPulse } from './probnic';
-import { HttpRequester, HttpHeaders, HttpMetrics } from './requester';
+/**
+ * Probe implementation to run in a browser.
+ */
+
+import { Probe, RecipeProvider, ProbeReporter, ProbeRecipe, ProbeContext, ProbePulseReport, ProbeTargetInfo, ProbePulseSampleReport, Requester, RequesterCallback } from './probe';
 import { XhrHttpRequester } from './xhr_requester';
 
-export class BrowserProbnic implements Probnic {
-    /** Requester used to get data */
-    public static requester: HttpRequester;
+/**
+ * Probe implementation to run in a browser.
+ */
+export class BrowserProbe implements Probe {
+    /** Requester used to get data. */
+    public static requester: Requester;
 
+    /** Schedules probe runs. */
     public static scheduler: Scheduler;
 
     private iteration: number;
@@ -19,9 +26,6 @@ export class BrowserProbnic implements Probnic {
     constructor(public recipeProvider: RecipeProvider, public reporter: ProbeReporter) {
         this.iteration = 0;
         this.completed = false;
-        //const delimiter = this.apiEndpoint.indexOf('?') === -1 ? '?' : '&';
-        //const monotonic = window.performance && window.performance.now ? 'true' : 'false';
-        //this.apiEndpoint = `${this.apiEndpoint}${delimiter}monotonic=${monotonic}`;
     }
 
     /** Starts/resumes execution of the test. */
@@ -36,7 +40,7 @@ export class BrowserProbnic implements Probnic {
             // The test session is completed
             return;
         }
-        this.nextJob = BrowserProbnic.scheduler.scheduleAfter(0, this.run.bind(this));
+        this.nextJob = BrowserProbe.scheduler.scheduleAfter(0, this.run.bind(this));
     }
 
     /** Stops execution of the test. */
@@ -49,8 +53,7 @@ export class BrowserProbnic implements Probnic {
 
     /** Runs the test. */
     private run(): void {
-        //const endpoint = `${this.apiEndpoint}&iter=${this.iteration}`;
-        this.recipeProvider.getRecipe(this.executeTest.bind(this))
+        this.recipeProvider.getRecipe(this.iteration, this.executeTest.bind(this))
     }
 
     private executeTest(params: ProbeRecipe | null): void {
@@ -64,7 +67,7 @@ export class BrowserProbnic implements Probnic {
         test.run(this.handleResult.bind(this, params.name, params.ctx, params.next));
     }
 
-    private handleResult(recipe: string, ctx: ProbeContext, next: number, reports: ProbeSampleReport[]): void {
+    private handleResult(recipe: string, ctx: ProbeContext, next: number, reports: ProbePulseReport[]): void {
         // Use the injected logger to log report
         this.reporter(recipe, {
             ctx: ctx,
@@ -77,7 +80,7 @@ export class BrowserProbnic implements Probnic {
             return;
         }
         if (next > 0) {
-            this.nextJob = BrowserProbnic.scheduler.scheduleAfter(next, this.run.bind(this));
+            this.nextJob = BrowserProbe.scheduler.scheduleAfter(next, this.run.bind(this));
         } else {
             this.completed = true;
             this.stop();
@@ -85,8 +88,15 @@ export class BrowserProbnic implements Probnic {
     }
 }
 
+/**
+ * Runs a single pulse for a specific ProbeRecipe
+ */
+interface ProbeTest {
+    run(cb: (reports: ProbePulseReport[]) => void): void;
+}
+
 //TODO: add a Test interface and convert it to implement this interface
-class HttpTest {
+class HttpTest implements ProbeTest {
     constructor(
         private targets: ProbeTargetInfo[],
         private pulses: number,
@@ -101,22 +111,13 @@ class HttpTest {
         }
     }
 
-    public run(cb: (reports: ProbeSampleReport[]) => void) {
-        const reports: ProbeSampleReport[] = [];
+    public run(cb: (reports: ProbePulseReport[]) => void) {
+        const reports: ProbePulseReport[] = [];
         const wg = new WaitGroup(this.targets.length);
         this.forEachTarget(function (target, name) {
-            const pulses: ProbeReportPulse[] = [];
-            const handler = function (done: () => void, status: number, headers: HttpHeaders, body: string | null, metrics: HttpMetrics) {
-                pulses.push({
-                    'd': metrics.duration,
-                    'ttfb': metrics.ttfb,
-                    'dns': metrics.dns,
-                    'tcp': metrics.tcp,
-                    'tls': metrics.tls,
-                    'sc': status,
-                    'sz': metrics.size,
-                    'via': headers['via']
-                });
+            const pulses: ProbePulseSampleReport[] = [];
+            const handler = function (done: () => void, report: ProbePulseSampleReport) {
+                pulses.push(report);
                 done();
             }
             let nested = function finish() {
@@ -130,8 +131,8 @@ class HttpTest {
             for (let i = this.pulses - 1; i >= 0; i--) {
                 const pulse_timeout = this.pulse_timeout;
                 nested = (function probe(next: () => void, delay: number) {
-                    const task = BrowserProbnic.requester.get.bind(null, target, false, pulse_timeout, handler.bind(null, next));
-                    BrowserProbnic.scheduler.scheduleAfter(delay, task);
+                    const task = BrowserProbe.requester.get.bind(null, target, pulse_timeout, handler.bind(null, next), {withCookies: false});
+                    BrowserProbe.scheduler.scheduleAfter(delay, task);
                 }).bind(null, nested, i > 0 ? this.pulse_delay : 0);
             }
             // Unwrap timeout(0), probe, timeout(delay), probe, timeout(delay), probe, finish
@@ -181,6 +182,6 @@ class SchedulerImpl implements Scheduler {
     }
 }
 
-BrowserProbnic.scheduler = new SchedulerImpl();
+BrowserProbe.scheduler = new SchedulerImpl();
 
-BrowserProbnic.requester = new XhrHttpRequester();
+BrowserProbe.requester = new XhrHttpRequester();

@@ -61,7 +61,11 @@ HTTP 200, JSON
 3. Configure you application to run Probnic:
 Include `probnic.js` in your application, then configure it to run as shown below:
 ```
-    var recipeProvider = new provider.RestRecipeProvider("https://myapi.com/recipe"),
+    function onComplete(name, report) {
+        console.log("Probe ${name} report: " + JSON.stringify(report));
+    }
+
+    var recipeProvider = new probnic.RestRecipeProvider("https://myapi.com/recipe"),
         p = new probnic.BrowserProbnic(recipeProvider, onComplete);
     p.start();
 ```
