@@ -1,5 +1,5 @@
 {
-  "name": "probnic",
+  "name": "probnik",
   "version": "1.0.0",
   "description": "Network measurement framework",
   "main": "probe.js",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.corp.netflix.com:7999/ftl/probnic.git"
+    "url": "ssh://git@stash.corp.netflix.com:7999/ftl/probnik.git"
   },
   "author": "ftl@netflix.com",
   "license": "ISC",

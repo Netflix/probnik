@@ -13,7 +13,7 @@ app.listen(3000, () => {
  console.log("Server running on port 3000");
 });
 
-app.get("/probnic/recipe", (req, res, next) => {
+app.get("/probnik/recipe", (req, res, next) => {
     return res.json({
         "next": 0,
         "pulse_timeout": 15000,

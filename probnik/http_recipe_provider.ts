@@ -22,7 +22,7 @@ interface HttpDataRequester {
 }
 
  /**
- * Provides Probnic recipe based on an output of a REST HTTP endpoint.
+ * Provides Probnik recipe based on an output of a REST HTTP endpoint.
  * When acked to provide a recipe, performs an HTTP GET call on a configured URL and provides
  * the result back to the caller.
  */

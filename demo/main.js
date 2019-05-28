@@ -1,4 +1,4 @@
-var probnic = require('../probnic/probnic.ts');
+var probnik = require('../probnik/probnik.ts');
 
 var progressLog = $('#progress-log');
 
@@ -289,8 +289,8 @@ function onComplete(recipeName, data) {
 function runProbe() {
     var rangeSlider = document.getElementById("scheduler-interval-range");
     if (schedulerIsActive) {
-        var recipeProvider = new probnic.RestRecipeProvider("http://localhost:3000/probnic/recipe");
-        var t = new probnic.BrowserProbe(recipeProvider, onComplete);
+        var recipeProvider = new probnik.RestRecipeProvider("http://localhost:3000/probnik/recipe");
+        var t = new probnik.BrowserProbe(recipeProvider, onComplete);
         t.start();
     }
     setTimeout(runProbe, rangeSlider.value);

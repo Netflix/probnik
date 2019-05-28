@@ -1,5 +1,5 @@
 /**
- * Contains public interfaces for the Probnic runtime.
+ * Contains public interfaces for the Probnik runtime.
  */
 
  /**
@@ -108,7 +108,7 @@ export interface ProbePulseSampleReport {
 }
 
 /**
- * Describes a target for the Probnic test.
+ * Describes a target for the Probnik test.
  */
 export interface ProbeTargetInfo {
     /** Unique name of the target */

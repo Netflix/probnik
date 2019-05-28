@@ -34,7 +34,7 @@ export class BrowserProbe implements Probe {
             // Already started
             return;
         }
-        // TODO: should we allow running the test from the same Probnic object several times?
+        // TODO: should we allow running the test from the same Probnik object several times?
         // Isn't the iteration property created exactly for this purpose?
         if (this.completed) {
             // The test session is completed
