@@ -1,0 +1,9 @@
+dist/
+demo/dist/
+src/probe.js
+nohup.out
+.DS_Store
+*.*~
+.nodemonignore
+node_modules/
+npm-debug.log

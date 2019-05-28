@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <!-- Custom styles -->
+    <link href="app.css" rel="stylesheet">
+
+    <title>Probnic demo</title>
+  </head>
+  <body>
+
+    <div id="wrapper">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+    
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
+                <h1 class="h3 mb-0 text-gray-800">Probnic Demo</h1>
+    
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                </ul>
+
+            </nav>
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Content Row -->
+            <div class="row justify-content-md-center">
+                <!-- Probe recipe configuration -->
+                <div class="col-9 mb-2">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="dropdown" id="recipe-selection-dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Recipe
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Demo 1</a>
+                                            <a class="dropdown-item" href="#">Demo 2</a>
+                                            <a class="dropdown-item" href="#">Demo 3</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <input type="text" class="form-control" id="recipe-url" aria-describedby="recipe-selection-dropdown" value="http://localhost:3000/probnic/recipe">
+                            </div>
+
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-6 card" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><strong>Type:</strong> <span id="recipe-test-type">HTTP</span></h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Targets</h6>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>fast</td><td>http://localhost:3000/datagen/fast?size=5120</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>slow</td><td>http://localhost:3000/datagen/slow?size=5120</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>wonky</td><td>http://localhost:3000/datagen/wonky?size=5120</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 card" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><strong>Pulses:</strong> <span id="recipe-test-type">3</span></h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">Pulse config</h6>
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Delays (ms)</td><td>0, 2000, 2000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Timeout (ms)</td><td>15000</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div>
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".recipe-config-modal">JSON</button>
+
+                                <div class="modal fade recipe-config-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modal-label">Recipe Config</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                        <p class="card-text">
+                                                        <pre>
+                                                            <code>
+{
+    next: 0,
+    pulse_timeout: 15000,
+    pulse_delays: [0, 2000, 2000],
+    urls: [{
+        name: "fast",
+        url: "http://localhost:3000/datagen/fast?size=5120"
+    },{
+        name: "slow",
+        url: "http://localhost:3000/datagen/slow?size=5120"
+    },{
+        name: "wonky",
+        url: "http://localhost:3000/datagen/wonky?size=5120"
+    }],
+    pulses: 3,
+    pulse_delay: 2000,
+    logblob: "test",
+    ctx: {
+        iter: null,
+        ts: 1558913576561
+    }
+}
+                                                            </code>
+                                                        </pre>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Probe schedule configuration -->
+                <div class="col-3 mb-2">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Recipe Scheduler</div>
+                            <div class="text-gray-800">
+                                <form>
+                                        <div class="form-group">
+                                            <label for="formControlRange">Run Interval (ms)</label>
+                                            <input type="range" class="form-control-range" id="scheduler-interval-range" min="10" max="10000" value="1000">
+                                            <input type="text" id="scheduler-interval-value" value="1000">
+                                        </div>  
+                                        <div>
+                                            <button type="button" class="btn btn-danger" id="scheduler-start-btn">Stop</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Graphs Row -->
+            <div class="row">
+    
+                <!-- Area Chart -->
+                <div class="col-xl-12">
+                    <div class="card shadow mb-2">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Probe Results</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- RPS -->
+                                <div class="col border mb-1">
+                                    RPS
+                                    <canvas id="probe-rps-chart"></canvas>
+                                </div>
+
+                                <!-- Errors Rate -->
+                                <div class="col border mb-1">
+                                    Errors Rate
+                                    <canvas id="errors-rate-chart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Probes Share -->
+                                <div class="col border mb-1">
+                                    Probes Share
+                                    <canvas id="probe-share-chart"></canvas>
+                                </div>
+
+                                <!-- Errors Share -->
+                                <div class="col border mb-1">
+                                    Errors Share
+                                    <canvas id="errors-share-chart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Time -->
+                                <div class="col border mb-1">
+                                    Timing
+                                    <canvas id="timing-chart"></canvas>
+                                </div>
+                            </div>                                
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Probes log -->
+            <div class="row justify-content-md-center">
+                    <div class="col mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Probes log</div>
+                                        <div class="mb-0 text-gray-800">
+                                            <table class="table table-condensed" style="border-collapse:collapse;" id="probes-log-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Time</th>
+                                                        <th>Name</th>
+                                                        <th>Details</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="modal fade probe-details-modal" tabindex="-1" role="dialog" aria-hidden="true" id="probe-details-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                            <h5 class="modal-title" id="modal-label">Probe Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card">
+                            <pre><code id="probe-json"></code></pre>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2019</span>
+              </div>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+    
+        </div>
+        <!-- End of Content Wrapper -->
+    
+      </div>
+      <!-- End of Page Wrapper -->
+            
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

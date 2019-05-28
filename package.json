@@ -1,0 +1,36 @@
+{
+  "name": "probnic",
+  "version": "1.0.0",
+  "description": "Network measurement framework",
+  "main": "probe.js",
+  "scripts": {
+    "prepare": "webpack --config webpack.config.js",
+    "test": "test",
+    "build:demo": "cp demo/app.css demo/dist/app.css && cp demo/vendor/chart.js demo/dist/vendor/chart.js && cp demo/index.html demo/dist/index.html",
+    "demo:ui": "npm run build:demo && npm run serve:demo",
+    "demo:steering": "npm run serve:steering",
+    "demo": "npm run prepare && concurrently \"npm:demo:ui\" \"npm:demo:steering\"",
+    "serve:demo:dev": "http-server ./demo/ -p 8000",
+    "serve:demo": "http-server ./demo/dist/ -p 8000",
+    "serve:steering": "node ./demo/server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.corp.netflix.com:7999/ftl/probnic.git"
+  },
+  "author": "ftl@netflix.com",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^16.2.3",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "http-server": "^0.11.1",
+    "typescript": "^3.4.5"
+  },
+  "devDependencies": {
+    "ts-loader": "^6.0.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  }
+}
