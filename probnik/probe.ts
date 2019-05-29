@@ -167,3 +167,17 @@ export type RequesterCallback = (report: ProbePulseSampleReport) => void;
 export interface RequesterOptions {
     [key: string]: any;
 }
+
+/**
+ * Gets a performance sample of a given target.
+ */
+export interface ProbeTester {
+    run(target: ProbeTargetInfo, cb: (report: ProbePulseSampleReport) => void): void;
+}
+
+/**
+ * Initializes a ProbeTester for a given recipe.
+ */
+export interface ProbeTesterFactory {
+    getTester(requester: Requester, recipe: ProbeRecipe): ProbeTester;
+}

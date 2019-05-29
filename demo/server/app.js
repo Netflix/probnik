@@ -35,6 +35,7 @@ app.get("/probnik/recipe", (req, res, next) => {
         "pulses": 3,
         "pulse_delay": 2000,
         "name": "test",
+        "type": "http_get",
         "ctx": {
             "iter": null,
             "ts": new Date().valueOf()

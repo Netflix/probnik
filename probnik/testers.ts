@@ -1,0 +1,47 @@
+/**
+ *
+ *  Copyright 2018 Netflix, Inc.
+ *
+ *     Licensed under the Apache License, Version 2.0 (the "License");
+ *     you may not use this file except in compliance with the License.
+ *     You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *     Unless required by applicable law or agreed to in writing, software
+ *     distributed under the License is distributed on an "AS IS" BASIS,
+ *     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *     See the License for the specific language governing permissions and
+ *     limitations under the License.
+ *
+ */
+
+/**
+ * Contains implementations of Probe testers.
+ */
+
+import { ProbeTester, ProbeTargetInfo, ProbePulseSampleReport, Requester, ProbeRecipe, ProbeTesterFactory } from './probe';
+
+/**
+ * Test performance of HTTP(s) GET endpoint.
+ */
+class HttpTester implements ProbeTester {
+    constructor(private readonly requester: Requester,  private readonly timeout: number) {
+    }
+
+    public run(target: ProbeTargetInfo, cb: (report: ProbePulseSampleReport) => void) {
+        this.requester.get(target.target, this.timeout, cb, {withCookies: false});
+    }
+}
+
+/**
+ * Initializes ProbeTesters for given recipes.
+ */
+export class TesterFactory implements ProbeTesterFactory {
+    getTester(requester: Requester, recipe: ProbeRecipe): ProbeTester {
+        if (recipe.type == 'http_get') {
+            return new HttpTester(requester, recipe.pulse_timeout);
+        }
+        throw new Error(`${recipe.type}: inknown recipe type`);
+    }
+}
