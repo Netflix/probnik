@@ -20,7 +20,7 @@
  * Implements XHR requester to run Probe and get ProbeRecipe
  */
 
-import { Requester, RequesterCallback, RequesterOptions } from './probe';
+import { Requester, RequesterCallback, RequesterOptions } from '../probe';
 
 /**
  * A data object that contains HTTP metrics report.

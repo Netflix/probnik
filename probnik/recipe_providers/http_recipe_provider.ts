@@ -16,8 +16,8 @@
  *
  */
 
-import { RecipeProvider, ProbeRecipe, RequesterOptions } from './probe';
-import { XhrHttpRequester, HttpGetDataCallback } from './xhr_requester';
+import { RecipeProvider, ProbeRecipe, RequesterOptions } from '../probe';
+import { XhrHttpRequester, HttpGetDataCallback } from '../requesters/xhr_requester';
 
 function isObject(o: any): boolean {
     return !!(o && ("object" === typeof o));

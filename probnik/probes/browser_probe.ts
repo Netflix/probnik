@@ -20,10 +20,8 @@
  * Probe implementation to run in a browser.
  */
 
-import { ProbeRecipe, ProbeTester } from './probe'
- import { PulseProbe } from './pulse_probe'
-import { XhrHttpRequester } from './xhr_requester';
-import { ProbeTesterFactory } from './probe';
+import { PulseProbe } from './pulse_probe'
+import { XhrHttpRequester } from '../requesters/xhr_requester';
 
 /**
  * Probe implementation to run in a browser.
