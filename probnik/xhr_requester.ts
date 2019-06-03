@@ -20,7 +20,7 @@
  * Implements XHR requester to run Probe and get ProbeRecipe
  */
 
-import { Requester, RequesterCallback, RequesterOptions, ProbePulseSampleReport } from './probe';
+import { Requester, RequesterCallback, RequesterOptions } from './probe';
 
 /**
  * A data object that contains HTTP metrics report.
@@ -125,7 +125,7 @@ function getReport(url: string | null, size: number, start: number, duration: nu
         if (timing.secureConnectionStart === 0) {
             // Chrome has a known bug setting the secureConnectionStart to 0 when the
             // TLS connection is reused. The spec says that 0 should be used when TLS
-            // is not used. FTL probes are always HTTPS to avoid mixed content issue,
+            // is not used. Probes are always HTTPS to avoid mixed content issue,
             // so it is safe to assume that 0 means reused and not HTTP.
             report.tls = 0;
         } else if (timing.secureConnectionStart !== undefined) {

@@ -16,7 +16,7 @@
  *
  */
 
-import { Probe, RecipeProvider, ProbeReporter, ProbeRecipe, ProbeContext, ProbePulseReport, ProbeTargetInfo, ProbePulseSampleReport, Requester, RequesterCallback, ProbeTester, ProbeTesterFactory } from './probe';
+import { Probe, RecipeProvider, ProbeReporter, ProbeRecipe, ProbePulseReport, ProbeTargetInfo, ProbePulseSampleReport, Requester, ProbeTesterFactory } from './probe';
 import { TesterFactory } from './testers'
 
 /**
