@@ -1,4 +1,4 @@
-Get a taste of netwrok with Probnik
+Get a taste of network with Probnik
 ============================
 
 Probnik is a simple but powerful measurement framework, allowing you to compare various alternatives for you network configuration. It is easy to integrate into your application code, performs tests in the background, sending a summary for analysis upon completion.
