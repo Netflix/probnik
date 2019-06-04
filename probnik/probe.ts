@@ -21,7 +21,7 @@
  */
 
  /**
- * A component that executes a series of tests to compare performance of several alternatives.
+ * A component that executes a series of tests and reports performance of several test targets.
  */
 export interface Probe {
     /** An object that provides a recipe to executes tests. */
@@ -121,7 +121,7 @@ export interface ProbePulseReport {
  * A data object that contains results for each pulse for a specific recipe target.
  */
 export interface ProbePulseSampleReport {
-    /** Pulse start. */
+    /** Pulse start time. */
     start: number;
     /** Request duration. Pulse end is start + d. */
     d: number;
@@ -135,7 +135,7 @@ export interface ProbePulseSampleReport {
  * Describes a target for the Probnik test.
  */
 export interface ProbeTargetInfo {
-    /** Unique name of the target */
+    /** Unique name of the target in the recipe. */
     readonly name: string;
 
     /** Target path to test. Could be a URL, ip:port etc.

@@ -61,7 +61,7 @@ Demo
 This repo includes a simple demo application, showing one of the ways to integrate with Probnik and analyze the results.
 
 ## Prerequisites
-Make sure that `npm` and `Node` are installed.
+Make sure that `npm` (>=5.5.0) and `Node` (>=8.0.0) are installed.
 Probnik and demo target ES5, so should be supported on all modern browsers.
 
 ## Installation
