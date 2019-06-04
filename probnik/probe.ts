@@ -80,7 +80,7 @@ export interface ProbeRecipe {
     /** Context/extra information about the recipe. E.g. Name of the AB test that get carried over in the reports. */
     readonly ctx: ProbeContext;
 
-    /** Delay (in ms) to repeat a probe run after recipe completion. */
+    /** Delay (in ms) to repeat a probe run after recipe completion. Repeat is disabled if missing or 0. */
     readonly next: number;
 
     /** Number of times to repeat testing for each target. */
