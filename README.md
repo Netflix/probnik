@@ -3,7 +3,7 @@ Get a taste of network with Probnik
 
 Probnik is a simple but powerful measurement framework, allowing you to compare various alternatives for you network configuration. It is easy to integrate into your application code, performs tests in the background, sending a summary for analysis upon completion.
 
-** Note: ** currently Probnik is in the Beta stage. Please use results with caution (and please submit bugs/issues) until this notice is taken down.
+**Note:** currently Probnik is in the Beta stage. Please use results with caution (and please submit bugs/issues) until this notice is taken down.
 
 
 Components
@@ -81,8 +81,8 @@ Open the broser at `http://localhost:8000`. The demo also runs a webserver on `l
 
 Documentation and more info
 ============================
-*** [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
-*** TODO: Monitorama talk link
+* [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
+* TODO: Monitorama talk link
 
 Contributing
 ============================
