@@ -16,11 +16,23 @@
  *
  */
 
-/**
- * Exports
- */
+import { RecipeProvider, ProbeRecipe, RequesterOptions } from '../probe';
 
-export * from './probe';
-export * from './probes/browser_probe';
-export * from './recipe_providers/http_recipe_provider';
-export * from './recipe_providers/local_recipe_provider';
+/**
+ * Provides Probnik recipe based on provided provided during an initialization.
+ */
+export class LocalRecipeProvider implements RecipeProvider {
+    private recipe: ProbeRecipe;
+
+    /**
+     * @param url URL of an API endpoint to call to get a recipe.
+     */
+    constructor(private json: object) {
+        this.recipe = <ProbeRecipe>json;
+    }
+
+    /** Provides recipe to test. */
+    public getRecipe(iteration: number, cb: (params: ProbeRecipe | null) => void): void {
+        cb(this.recipe);
+    }
+}

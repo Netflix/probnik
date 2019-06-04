@@ -1,6 +1,6 @@
 /**
  *
- *  Copyright 2018 Netflix, Inc.
+ *  Copyright 2019 Netflix, Inc.
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -20,19 +20,8 @@
  * Contains implementations of Probe testers.
  */
 
-import { ProbeTester, ProbeTargetInfo, ProbePulseSampleReport, Requester, ProbeRecipe, ProbeTesterFactory } from './probe';
-
-/**
- * Test performance of HTTP(s) GET endpoint.
- */
-class HttpTester implements ProbeTester {
-    constructor(private readonly requester: Requester,  private readonly timeout: number) {
-    }
-
-    public run(target: ProbeTargetInfo, cb: (report: ProbePulseSampleReport) => void) {
-        this.requester.get(target.target, this.timeout, cb, {withCookies: false});
-    }
-}
+import { ProbeTester, Requester, ProbeRecipe, ProbeTesterFactory } from '../probe';
+import { HttpTester } from './http_tester';
 
 /**
  * Initializes ProbeTesters for given recipes.

@@ -1,6 +1,6 @@
 /**
  *
- *  Copyright 2018 Netflix, Inc.
+ *  Copyright 2019 Netflix, Inc.
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -20,10 +20,8 @@
  * Probe implementation to run in a browser.
  */
 
-import { ProbeRecipe, ProbeTester } from './probe'
- import { PulseProbe } from './pulse_probe'
-import { XhrHttpRequester } from './xhr_requester';
-import { ProbeTesterFactory } from './probe';
+import { PulseProbe } from './pulse_probe'
+import { XhrHttpRequester } from '../requesters/xhr_requester';
 
 /**
  * Probe implementation to run in a browser.

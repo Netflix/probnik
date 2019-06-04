@@ -44,6 +44,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Recipe Config</div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="dropdown" id="recipe-selection-dropdown">
@@ -51,14 +52,13 @@
                                             Recipe
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Demo 1</a>
-                                            <a class="dropdown-item" href="#">Demo 2</a>
-                                            <a class="dropdown-item" href="#">Demo 3</a>
+                                            <a class="dropdown-item recipe-selector" href="#" recipe-url="http://localhost:3000/probnik/recipe/demo1">Demo 1</a>
+                                            <a class="dropdown-item recipe-selector" href="#" recipe-url="http://localhost:3000/probnik/recipe/demo2">Demo 2</a>
                                         </div>
                                     </div>
 
                                 </div>
-                                <input type="text" class="form-control" id="recipe-url" aria-describedby="recipe-selection-dropdown" value="http://localhost:3000/probnik/recipe">
+                                <input type="text" class="form-control" id="recipe-url" aria-describedby="recipe-selection-dropdown" value="http://localhost:3000/probnik/recipe/demo1">
                             </div>
 
                             <div class="container-fluid">
@@ -66,18 +66,9 @@
                                     <div class="col-6 card" style="width: 18rem;">
                                         <div class="card-body">
                                             <h5 class="card-title"><strong>Type:</strong> <span id="recipe-test-type">HTTP</span></h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">Targets</h6>
+                                            <h6 class="card-subtitle mb-2 text-muted">Targets:</h6>
                                             <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>fast</td><td>http://localhost:3000/datagen/fast?size=5120</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>slow</td><td>http://localhost:3000/datagen/slow?size=5120</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>wonky</td><td>http://localhost:3000/datagen/wonky?size=5120</td>
-                                                    </tr>
+                                                <tbody id='recipe-targets'>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -86,14 +77,13 @@
                                     <div class="col-6 card" style="width: 18rem;">
                                             <div class="card-body">
                                                 <h5 class="card-title"><strong>Pulses:</strong> <span id="recipe-test-type">3</span></h5>
-                                                <h6 class="card-subtitle mb-2 text-muted">Pulse config</h6>
                                                 <table>
                                                     <tbody>
                                                         <tr>
-                                                            <td>Delays (ms)</td><td>0, 2000, 2000</td>
+                                                            <td><strong>Delays (ms)</strong></td><td id='recipe-pulse-delay'></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Timeout (ms)</td><td>15000</td>
+                                                            <td><strong>Timeout (ms)</strong></td><td id='recipe-pulse-timeout'></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -119,29 +109,7 @@
                                                 <div class="card-body">
                                                         <p class="card-text">
                                                         <pre>
-                                                            <code>
-{
-    next: 0,
-    pulse_timeout: 15000,
-    pulse_delays: [0, 2000, 2000],
-    urls: [{
-        name: "fast",
-        url: "http://localhost:3000/datagen/fast?size=5120"
-    },{
-        name: "slow",
-        url: "http://localhost:3000/datagen/slow?size=5120"
-    },{
-        name: "wonky",
-        url: "http://localhost:3000/datagen/wonky?size=5120"
-    }],
-    pulses: 3,
-    pulse_delay: 2000,
-    logblob: "test",
-    ctx: {
-        iter: null,
-        ts: 1558913576561
-    }
-}
+                                                            <code id="recipe-json">
                                                             </code>
                                                         </pre>
                                                     </p>
@@ -163,12 +131,12 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Recipe Scheduler</div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Probe Scheduler</div>
                             <div class="text-gray-800">
                                 <form>
                                         <div class="form-group">
                                             <label for="formControlRange">Run Interval (ms)</label>
-                                            <input type="range" class="form-control-range" id="scheduler-interval-range" min="10" max="10000" value="1000">
+                                            <input type="range" class="form-control-range" id="scheduler-interval-range" min="10" max="1000" value="1000">
                                             <input type="text" id="scheduler-interval-value" value="1000">
                                         </div>  
                                         <div>
@@ -189,10 +157,8 @@
             <!-- Graphs Row -->
             <div class="row">
     
-                <!-- Area Chart -->
                 <div class="col-xl-12">
                     <div class="card shadow mb-2">
-                    <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Probe Results</h6>
                     </div>
@@ -248,14 +214,15 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Probes log</div>
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">Probes log</div>
                                         <div class="mb-0 text-gray-800">
                                             <table class="table table-condensed" style="border-collapse:collapse;" id="probes-log-table">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Time</th>
-                                                        <th>Name</th>
+                                                        <th>Recipe Type</th>
+                                                        <th>Probe Name</th>
                                                         <th>Details</th>
                                                     </tr>
                                                 </thead>
@@ -287,16 +254,6 @@
             </div>
         </div>
         <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2019</span>
-              </div>
-            </div>
-          </footer>
-          <!-- End of Footer -->
     
         </div>
         <!-- End of Content Wrapper -->

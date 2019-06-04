@@ -1,6 +1,6 @@
 /**
  *
- *  Copyright 2018 Netflix, Inc.
+ *  Copyright 2019 Netflix, Inc.
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
  *
  */
 
-import { RecipeProvider, ProbeRecipe, RequesterOptions } from './probe';
-import { XhrHttpRequester, HttpGetData, HttpGetDataCallback } from './xhr_requester';
+import { RecipeProvider, ProbeRecipe, RequesterOptions } from '../probe';
+import { XhrHttpRequester, HttpGetDataCallback } from '../requesters/xhr_requester';
 
 function isObject(o: any): boolean {
     return !!(o && ("object" === typeof o));

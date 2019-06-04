@@ -16,11 +16,17 @@
  *
  */
 
-/**
- * Exports
- */
 
-export * from './probe';
-export * from './probes/browser_probe';
-export * from './recipe_providers/http_recipe_provider';
-export * from './recipe_providers/local_recipe_provider';
+import { ProbeTester, ProbeTargetInfo, ProbePulseSampleReport, Requester, ProbeRecipe, ProbeTesterFactory } from '../probe';
+
+/**
+ * Test performance of HTTP(s) GET endpoint.
+ */
+export class HttpTester implements ProbeTester {
+    constructor(private readonly requester: Requester,  private readonly timeout: number) {
+    }
+
+    public run(target: ProbeTargetInfo, cb: (report: ProbePulseSampleReport) => void) {
+        this.requester.get(target.target, this.timeout, cb, {withCookies: false});
+    }
+}

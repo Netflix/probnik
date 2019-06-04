@@ -1,6 +1,6 @@
 /**
  *
- *  Copyright 2018 Netflix, Inc.
+ *  Copyright 2019 Netflix, Inc.
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ export interface Probe {
 /**
  * Receives a report with Probe results. 
  */
-export type ProbeReporter = (recipeName: string, report: ProbeReport) => void;
+export type ProbeReporter = (report: ProbeReport) => void;
 
  /**
  * Provides a probe recipe to test.
@@ -57,6 +57,12 @@ export interface ProbeReport {
     /** Context information about the recipe used in the test. */
     readonly ctx: ProbeContext;
 
+    /** Recipe type. */
+    readonly type: string;
+
+    /** Probe recipe name. */
+    readonly name: string;
+
     /** List of results of tests for each pulse for each recipe target. */
     readonly data: ProbePulseReport[];
 }
@@ -71,10 +77,10 @@ export interface ProbeRecipe {
     /** Test type. E.g. HTTP test. */
     readonly type: string;
 
-    /** Context/extra information about the recipe. E.g. Name of the AB test. */
+    /** Context/extra information about the recipe. E.g. Name of the AB test that get carried over in the reports. */
     readonly ctx: ProbeContext;
 
-    /** Delay (in ms) to repeat a probe run after recipe completion. */
+    /** Delay (in ms) to repeat a probe run after recipe completion. Repeat is disabled if missing or 0. */
     readonly next: number;
 
     /** Number of times to repeat testing for each target. */

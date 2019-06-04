@@ -1,6 +1,6 @@
 /**
  *
- *  Copyright 2018 Netflix, Inc.
+ *  Copyright 2019 Netflix, Inc.
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
  *
  */
 
-import { Probe, RecipeProvider, ProbeReporter, ProbeRecipe, ProbeContext, ProbePulseReport, ProbeTargetInfo, ProbePulseSampleReport, Requester, RequesterCallback, ProbeTester, ProbeTesterFactory } from './probe';
-import { TesterFactory } from './testers'
+import { Probe, RecipeProvider, ProbeReporter, ProbeRecipe, ProbePulseReport, ProbeTargetInfo, ProbePulseSampleReport, Requester, ProbeTesterFactory } from '../probe';
+import { TesterFactory } from '../testers/testers'
 
 /**
  * Probe implementation
@@ -127,8 +127,10 @@ export class PulseProbe implements Probe {
 
     private handleResult(recipe: ProbeRecipe, reports: ProbePulseReport[]): void {
         // Use the injected logger to log report
-        this.reporter(recipe.name, {
+        this.reporter({
             ctx: recipe.ctx,
+            name: recipe.name,
+            type: recipe.type,
             data: reports
         });
         
