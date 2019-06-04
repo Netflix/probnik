@@ -34,9 +34,10 @@ function onComplete(report) {
 var probnik = require("probnic"),
     // recipe provider to handout test recipe to probe
     recipeProvider = new probnik.RestRecipeProvider("https://myapi.com/recipe");
-    // set up a browser probe
-    probe = new probnik.BrowserProbnik(recipeProvider, onComplete);
-    probe.start();
+
+// set up a browser probe
+probe = new probnik.BrowserProbnik(recipeProvider, onComplete);
+probe.start();
 ```
 
 For more details on the setup a test recipe endpoint please refer to the [wiki guide](https://github.com/Netflix/probnik/wiki/Quick-Start).
