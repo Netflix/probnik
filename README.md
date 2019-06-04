@@ -81,7 +81,7 @@ Today it is being used at Netflix to:
 * Build availability metrics for your infrastructure
 * Compare DNS providers
 * Compare TLS ciphers and config
-* Measure impact of various protocols (e.g. HTTP 1.1 vs HTTP2)
+* Measure impact of various protocols (e.g. HTTP/1.1 vs HTTP/2)
 * Build a volume/latency models of client traffic
 * And more...
 
