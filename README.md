@@ -3,6 +3,8 @@ Get a taste of network with Probnik
 
 Probnik is a simple but powerful measurement framework, allowing you to compare various alternatives for you network configuration. It is easy to integrate into your application code, performs tests in the background, sending a summary for analysis upon completion.
 
+** Note: ** currently Probnik is in the Beta stage. Please use results with caution (and please submit bugs/issues) until this notice is taken down.
+
 
 Components
 ============================
@@ -12,65 +14,32 @@ For practical application operation of Probnik consists of 4 main components:
 * A client agent, which performs tests against given targets and collects measurements
 * A reporting and analytics system
 
-Please see [TODO: link] detailed documentation about Probnik.
+Please see [Probnik wiki](https://github.com/Netflix/Probnik/wiki) for detailed documentation about Probnik.
 
 Quick Start
 ============================
 
-As measurement goals and measured targets would differ, this repository provides an implementation of a client agent and defines basic interfaces to get test recipe and send results. For practical usage defining and setting up test targets, recipe provider and analytics system is up to a user.
-
-One of the typical scenarios for probnik is comparing network latency or availability characteristics of different endpoints for your customers (e.g. different datacenters). 
-
-The setup would consist of 3 steps:
-1. Set up HTTP endpoint(s) to respond to HTTP GET requests on your servers, e.g.:
+You can install probnik with npm and use it in your application.
 
 ```
-HTTP GET https://dc1.myapi.com/data?size=5000
-
-> HTTP 200 on success, 5KB payload
+npm install probnik
 ```
 
-2.  Set up another HTTP endpoint to provide a recipe to test, listing available choices:
-
 ```
-HTTP GET https://myapi.com/recipe
-
-HTTP 200, JSON
-{
-    "next": 0,
-    "pulse_timeout": 15000,
-    "pulse_delays": [ 0, 2000, 2000 ],
-    "targets": [{
-            "name": "Datacenter 1",
-            "target": "https://dc1.myapi.com/data?size=5000"
-        }, {
-            "name": "Datacenter 2",
-            "target": "https://dc2.myapi.com/data?size=5000"
-        }],
-    "pulses": 3,
-    "pulse_delay": 2000,
-    "name": "My Test Recipe",
-    "ctx": {
-        "ts": 1558997335285
-    }
+// function to be called with Probnik test report
+function onComplete(report) {
+    console.log("Probe ${report.name} report: " + JSON.stringify(report));
 }
+
+var probnik = require("probnic"),
+    // recipe provider to handout test recipe to probe
+    recipeProvider = new probnik.RestRecipeProvider("https://myapi.com/recipe");
+    // set up a browser probe
+    probe = new probnik.BrowserProbnik(recipeProvider, onComplete);
+    probe.start();
 ```
 
-**Note:** setting up a working HTTP endpoint to provide a Probnik recipe is optional. An alternative is to send a static configuration with your application. However, we recommend setting up an endpoint, as it gives you the ability to control frequency of tests, as well as tests difference recipes in parallel.
-
-3. Configure you application to run Probnik:
-Include `probnik.js` in your application, then configure it to run as shown below:
-```
-    function onComplete(name, report) {
-        console.log("Probe ${name} report: " + JSON.stringify(report));
-    }
-
-    var recipeProvider = new probnik.RestRecipeProvider("https://myapi.com/recipe"),
-        p = new probnik.BrowserProbnik(recipeProvider, onComplete);
-    p.start();
-```
-
-You can refer to a demo in this repo for an example of such setup.
+For more details on the setup a test recipe endpoint please refer to the [wiki guide](https://github.com/Netflix/probnik/wiki/Quick-Start).
 
 Features and Use Cases
 ============================
@@ -84,6 +53,8 @@ Today it is being used at Netflix to:
 * Measure impact of various protocols (e.g. HTTP/1.1 vs HTTP/2)
 * Build a volume/latency models of client traffic
 * And more...
+
+See more detailed coverage of these use cases in the [wiki](https://github.com/Netflix/probnik/wiki/Use-cases).
 
 Demo 
 ============================
@@ -110,13 +81,12 @@ Open the broser at `http://localhost:8000`. The demo also runs a webserver on `l
 
 Documentation and more info
 ============================
-Link to a Wiki
+*** [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
+*** TODO: Monitorama talk link
 
 Contributing
 ============================
 Bug reports, feature requests and especially pull requests (fixing bugs or adding features) are welcome!
-
-To ensure effective interactions, please follow a 'Contibuting to Probnik' guide.
 
 License
 ============================
