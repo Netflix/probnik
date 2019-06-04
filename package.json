@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "webpack --config webpack.config.js",
     "test": "test",
-    "build:demo": "cp demo/app.css demo/dist/app.css && cp demo/vendor/chart.js demo/dist/vendor/chart.js && cp demo/index.html demo/dist/index.html",
+    "build:demo": "mkdir -p demo/dist && mkdir -p demo/dist/vendor && cp demo/app.css demo/dist/app.css && cp demo/vendor/chart.js demo/dist/vendor/chart.js && cp demo/index.html demo/dist/index.html",
     "demo:ui": "npm run build:demo && npm run serve:demo",
     "demo:steering": "npm run serve:steering",
     "demo": "npm run prepare && concurrently \"npm:demo:ui\" \"npm:demo:steering\"",
