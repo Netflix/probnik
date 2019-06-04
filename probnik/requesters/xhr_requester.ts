@@ -84,13 +84,13 @@ function now(): number {
 }
 
 // Build HttpMetrics with calculated metrics or performance API metrics if available.
-function getReport(url: string | null, size: number, start: number, duration: number, ttfb: number, headers?: HttpHeaders): HttpProbePulseSampleReport {
+function getReport(url: string | null, status: number, size: number, start: number, duration: number, ttfb: number, headers?: HttpHeaders): HttpProbePulseSampleReport {
     const report: HttpProbePulseSampleReport = {
         start: start,
         size: size,
         d: duration,
         ttfb: ttfb,
-        sc: 0
+        sc: status
     };
     if (headers) {
         report.via = headers.via;
@@ -109,7 +109,7 @@ function getReport(url: string | null, size: number, start: number, duration: nu
         }
     }
     const timing = entries[entries.length - 1] as PerformanceResourceTiming;
-    if ('decodedBodySize' in timing) {
+    if ('decodedBodySize' in timing && timing.decodedBodySize > 0) {
         report.size = timing.decodedBodySize;
     }
     if (timing.duration) {
@@ -168,12 +168,12 @@ export class XhrHttpRequester implements Requester {
         try {
             req = getXhr();
         } catch (e) {
-            cb(getReport(url, 0, 0, 0, 0));
+            cb(getReport(url, 0, 0, 0, 0, 0));
             return;
         }
         if (!('withCredentials' in req)) {
             // Missing CORS support
-            cb(getReport(url, 0, 0, 0, 0));
+            cb(getReport(url, 0, 0, 0, 0, 0));
             return;
         }
         if (options.withCookies) {
@@ -201,7 +201,7 @@ export class XhrHttpRequester implements Requester {
                         length = req.response.length;
                     }
                     const duration = now() - start;
-                    cb(getReport(url, length, start, duration, ttfb, headers));
+                    cb(getReport(url, req.status, length, start, duration, ttfb, headers));
                     break;
             }
         };

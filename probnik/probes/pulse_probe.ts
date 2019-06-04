@@ -127,8 +127,10 @@ export class PulseProbe implements Probe {
 
     private handleResult(recipe: ProbeRecipe, reports: ProbePulseReport[]): void {
         // Use the injected logger to log report
-        this.reporter(recipe.name, {
+        this.reporter({
             ctx: recipe.ctx,
+            name: recipe.name,
+            type: recipe.type,
             data: reports
         });
         

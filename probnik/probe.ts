@@ -40,7 +40,7 @@ export interface Probe {
 /**
  * Receives a report with Probe results. 
  */
-export type ProbeReporter = (recipeName: string, report: ProbeReport) => void;
+export type ProbeReporter = (report: ProbeReport) => void;
 
  /**
  * Provides a probe recipe to test.
@@ -56,6 +56,12 @@ export interface RecipeProvider {
 export interface ProbeReport {
     /** Context information about the recipe used in the test. */
     readonly ctx: ProbeContext;
+
+    /** Recipe type. */
+    readonly type: string;
+
+    /** Probe recipe name. */
+    readonly name: string;
 
     /** List of results of tests for each pulse for each recipe target. */
     readonly data: ProbePulseReport[];
