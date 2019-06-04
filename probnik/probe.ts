@@ -77,7 +77,7 @@ export interface ProbeRecipe {
     /** Test type. E.g. HTTP test. */
     readonly type: string;
 
-    /** Context/extra information about the recipe. E.g. Name of the AB test. */
+    /** Context/extra information about the recipe. E.g. Name of the AB test that get carried over in the reports. */
     readonly ctx: ProbeContext;
 
     /** Delay (in ms) to repeat a probe run after recipe completion. */
