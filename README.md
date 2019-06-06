@@ -1,29 +1,35 @@
 Get a taste of network with Probnik
 ============================
 
-Probnik is a simple but powerful measurement framework, allowing you to compare various alternatives for you network configuration. It is easy to integrate into your application code, performs tests in the background, sending a summary for analysis upon completion.
+Probnik is a simple but powerful measurement framework, allowing to quickly compare various alternatives for network configuration of client-server communications. It is easy to integrate into an application code, perform tests from clients and send results for analysis upon completion.
 
 **Note:** currently Probnik is in the Beta stage. Please use results with caution (and please submit bugs/issues) until this notice is taken down.
 
 
 Components
 ============================
-For practical application operation of Probnik consists of 4 main components:
-* A list of targets (e.g. HTTP endpoints) that are being tested and compared
-* A provider of test recipe, identifying list of targets to test
-* A client agent, which performs tests against given targets and collects measurements
-* A reporting and analytics system
+![Preview1](./resources/components.png)
 
-Please see [Probnik wiki](https://github.com/Netflix/Probnik/wiki) for detailed documentation about Probnik.
+For practical applications Probnik consists of 4 main components:
+* Targets - a list of choices (e.g. HTTP endpoints) that are being tested and compared.
+* Recipe provider - component that provides a test recipe, listing targets to test and test parameters.
+* Probe - a client agent, which performs tests against given targets and collects measurements.
+* Analytics system - collects results of the test.
+
+The repo provides the implementation for the Probe agent, plugging it into user's infrastructure to provide test recipes and ingest results.
+
+Please see [Probnik wiki](https://github.com/Netflix/Probnik/wiki) for detailed documentation about Probnik components.
 
 Quick Start
 ============================
 
-You can install probnik with npm and use it in your application.
+You can install probnik with npm.
 
 ```
 npm install probnik
 ```
+
+Probing requires just a few lines of code in an application.
 
 ```
 // function to be called with Probnik test report
@@ -59,7 +65,7 @@ See more detailed coverage of these use cases in the [wiki](https://github.com/N
 
 Demo 
 ============================
-This repo includes a simple demo application, showing one of the ways to integrate with Probnik and analyze the results.
+This repo includes a simple demo application, showing an example of Probnik integration and results analysis.
 
 ## Prerequisites
 Make sure that `npm` (>=5.5.0) and `Node` (>=8.0.0) are installed.
@@ -83,7 +89,8 @@ Open the broser at `http://localhost:8000`. The demo also runs a webserver on `l
 Documentation and more info
 ============================
 * [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
-* TODO: Monitorama talk link
+* [Monitorama slides (Sergey Fedorov)](https://bit.ly/sfedorov-monitorama-pdx-19)
+* TODO: Monitorama video link
 
 Contributing
 ============================
