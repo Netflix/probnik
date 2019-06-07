@@ -37,7 +37,7 @@ function onComplete(report) {
     console.log("Probe ${report.name} report: " + JSON.stringify(report));
 }
 
-var probnik = require("probnic"),
+var probnik = require("probnik"),
     // recipe provider to handout test recipe to probe
     recipeProvider = new probnik.RestRecipeProvider("https://myapi.com/recipe");
 
