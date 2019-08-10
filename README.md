@@ -23,12 +23,6 @@ Please see [Probnik wiki](https://github.com/Netflix/Probnik/wiki) for detailed 
 Quick Start
 ============================
 
-You can install probnik with npm.
-
-```
-npm install probnik
-```
-
 Probing requires just a few lines of code in an application.
 
 ```

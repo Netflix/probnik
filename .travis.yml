@@ -1,0 +1,10 @@
+
+language: node_js
+node_js:
+   - '8'
+   - '10'
+deploy:
+  provider: npm
+  email: "npm@netflix.com"
+  on:
+     tags: true

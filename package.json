@@ -1,8 +1,15 @@
 {
-  "name": "probnik",
+  "name": "@netflix/probnik",
   "version": "0.0.2",
   "description": "Network measurement framework",
+  "homepage": "https://github.com/Netflix/probnik",
   "main": "probe.js",
+  "keywords": [
+    "testing",
+    "network",
+    "performance",
+    "monitoring"
+  ],
   "scripts": {
     "prepare": "webpack --config webpack.config.js",
     "test": "test",
@@ -32,5 +39,9 @@
     "ts-loader": "^6.0.1",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
+  },
+  "publishConfig": {
+      "access": "public",
+      "registry": "https://registry.npmjs.org/"
   }
 }
