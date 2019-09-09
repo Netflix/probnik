@@ -83,8 +83,9 @@ Open the broser at `http://localhost:8000`. The demo also runs a webserver on `l
 Documentation and more info
 ============================
 * [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
-* [Monitorama slides (Sergey Fedorov)](https://bit.ly/sfedorov-monitorama-pdx-19)
-* TODO: Monitorama video link
+* Monitorama PDX'19: 
+  * [slides](https://bit.ly/sfedorov-monitorama-pdx-19)
+  * [video](https://vimeo.com/341148870)
 
 Contributing
 ============================
