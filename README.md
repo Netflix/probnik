@@ -84,7 +84,7 @@ Documentation and more info
 ============================
 * [Wiki documentation](https://github.com/Netflix/Probnik/wiki)
 * Monitorama PDX'19: 
-  * [slides](https://bit.ly/sfedorov-monitorama-pdx-19)
+  * [slides](http://bit.ly/sfedorov-monitorama-19)
   * [video](https://vimeo.com/341148870)
 
 Contributing
